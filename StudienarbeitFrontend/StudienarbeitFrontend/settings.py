@@ -91,30 +91,6 @@ WSGI_APPLICATION = 'StudienarbeitFrontend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-"""if (os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine') or
-    os.getenv('SETTINGS_MODE') == 'prod'):
-    # Running on production App Engine, so use a Google Cloud SQL database.
-    DATABASES = {
-        'default': {
-            'ENGINE': 'google.appengine.ext.django.backends.rdbms',
-            'INSTANCE': 'dictionary-pts:ptsdb',
-            'NAME': 'dictionary_db',
-            'OPTIONS': {"init_command": "SET storage_engine=INNODB"},
-        }
-    }
-else:
-    # Running in development, so use a local MySQL database.
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'dictionary',
-            'USER': 'anna',
-            'PASSWORD': '',
-            'HOST': 'localhost',
-            'OPTIONS': {"init_command": "SET storage_engine=INNODB"},
-        }
-    }"""
-
 """DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

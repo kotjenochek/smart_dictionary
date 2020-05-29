@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from annoying.decorators import ajax_request
 from imageai.Detection import ObjectDetection
 from googletrans import Translator
 from gtts import gTTS
@@ -62,6 +61,7 @@ def show_pictures_with_recognized_objects(request):
     logged_user = get_logged_user(request.COOKIES)
     pictures_to_recognize_path = settings.MEDIA_ROOT
     object_recognition_library_path = os.path.join(settings.MEDIA_ROOT, 'libraries_for_object_recognition')
+    print()
 
     if 'image_was_edit' not in request.COOKIES:
         UnsavedLearnword.objects.all().delete()
@@ -98,10 +98,10 @@ def recognize_images(images_list, pictures_to_recognize_path, object_recognition
                 display_percentage_probability=False,
                 display_object_name=False
             )
-
-            create_unsaved_learnwords(recognized_object_list, image_url, logged_user.id)
+            print(image_url)
+            create_unsaved_learnwords(recognized_object_list, image, logged_user.id)
         except:
-            create_unsaved_learnwords(None, image_url, logged_user.id)
+            create_unsaved_learnwords(None, image, logged_user.id)
 
 
 def create_unsaved_learnwords(recognized_object_list, image_url, logged_user_id):
@@ -119,6 +119,7 @@ def create_unsaved_learnwords(recognized_object_list, image_url, logged_user_id)
     for recognized_object_name in recognized_objects_name:
         german_word = translate_to_german(recognized_object_name)
         russian_word = translate_to_russian(recognized_object_name)
+        print("Create UnsavedLearnwords with ...", str(image_url))
         UnsavedLearnword.objects.create(User_id=logged_user_id, german_word=german_word,
                                         russian_word=russian_word, image=image_url)
 
