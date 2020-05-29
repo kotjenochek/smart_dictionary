@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Learn 1
+{% endblock %}
+
+{% block content %}
+{% if word%}
+    <div class="col" style="padding:10px;display:inline-block">
+        <div class="z-depth-3" style="width:700px;max-height:600px;padding:10px">
+            <div class="row">
+                <img src={{word.image.url}} style="width:auto;max-width:650px;height:400px" >
+            </div>
+
+            {% if method_nr == 1 %}
+                <div class="row" style="margin:0px">
+                    <p style="color: #00695c;">{{word.russian_word}}</p>
+                    <audio controls src={{word.russian_pronunciation.url}}></audio>
+                </div>
+            {% elif method_nr == 2 %}
+                 <div class="row" style="margin:0px">
+                    <p style="color: #00695c;">{{word.german_word}}</p>
+                     <audio controls src={{word.german_pronunciation.url}}></audio>
+                </div>
+            {% endif %}
+
+            <div class="row" style="margin-top:15px">
+                <div class="col s6" style="text-align:left">
+                    <form action="{% url 'dictionary:answer_is_given' word.id '1' method_nr%}" method="post">
+                        {% csrf_token %}
+                        <button class="btn" type="submit" style="width:200px;height:auto;left:0px">
+                            Repeat
+                            <i class="material-icons" type="submit" style="margin-left:5px;">thumb_down</i>
+                        </button>
+                    </form>
+                </div>
+                <div class="col s6" style="text-align:right">
+                    <form action="{% url 'dictionary:answer_is_given' word.id '2' method_nr%}" method="post">
+                        {% csrf_token %}
+                        <button class="btn" type="submit" style="width:200px;height:auto">
+                            Сorrect
+                            <i class="material-icons" type="submit" style="margin-left:3px;">thumb_up</i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        {% else %}
+        <p align="center" style="margin-top:200px">You do not have any vocabulary</p>
+        {% endif %}
+{% endblock %}

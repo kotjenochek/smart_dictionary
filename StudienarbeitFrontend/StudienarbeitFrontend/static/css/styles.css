@@ -1,0 +1,101 @@
+body {
+    background-color:#e8f5e9;
+}
+
+.menu {
+	position: fixed; 
+    top: 0; 
+	left: 0;
+	right: 0;
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    background-color:#00695c;
+}
+
+.userinformation {
+		display: flex;
+		flex-direction: row;
+		position:absolute;
+        right: 0;
+        width: auto;
+        height: 60px;
+        color: #e8f5e9;
+}
+
+.navi {
+	left:0;
+	display: flex;
+    flex-direction: row;
+	margin-left: 10px;
+	height: 60px;
+}
+
+.navi>p {
+    vertical-align: middle;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+    text-shadow: 2px 2px #004d40
+}
+
+.navi>p>a {
+    color: #e8f5e9;
+}
+
+
+.userinformation>img {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    }
+
+.chooseUser{
+    display:flex;
+    flex-direction: column;
+    display:inline-block;
+    overflow: scrollbar;
+    color: #00695c;
+}
+
+.chooseUser>a {
+    color: #00695c;
+}
+
+.createUser{
+    display:flex;
+    flex-direction: column;
+    width:450px;
+    display: inline-block;
+}
+
+.createUser>p {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.createUser>button {
+    width:100%;
+}
+
+.load_pictures_form {
+    display: inline-block;
+    width: 500px;
+}
+
+.footer {
+    height: 50px;
+	position: fixed; 
+    bottom: 0; 
+	left: 0;
+	right: 0;
+	display: flex;
+    flex-direction: row;
+    background-color:#00695c;
+    color: #e8f5e9;
+}
+
+.footer>p {
+    margin:10px;
+}

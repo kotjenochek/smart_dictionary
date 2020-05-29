@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Learn 1
+{% endblock %}
+
+{% block content %}
+{% if word%}
+    <div class="col" style="padding:10px;display:inline-block">
+        <div class="z-depth-3" style="width:700px;max-height:600px;padding:10px">
+            <div class="row">
+                <img src={{word.image.url}} style="width:auto;height:400px;max-width:650px" >
+            </div>
+
+            {% if method_nr == 1 %}
+                <div class="row" style="margin:0px">
+                    <p style="color: #00695c;">{{word.russian_word}}</p>
+                    <audio src={{word.russian_pronunciation.url}} controls></audio>
+                </div>
+            {% elif method_nr == 2 %}
+                 <div class="row" style="margin:0px">
+                    <p style="color: #00695c;">{{word.german_word}}</p>
+                     <audio src={{word.german_pronunciation.url}} controls></audio>
+                </div>
+            {% endif %}
+
+            <div class="row" style="margin:0px;margin-top:15px">
+                <form action="{% url 'dictionary:answer_is_given2' word.id '1' method_nr%}" method="post">
+                    {% csrf_token %}
+                    <button class="btn" type="submit" style="width:200px;height:auto">
+                        OK
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        {% else %}
+        <p align="center" style="margin-top:200px">You do not have any vocabulary</p>
+        {% endif %}
+{% endblock %}

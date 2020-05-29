@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load filter_tags %}
+
+{% block title %}
+Load picture
+{% endblock %}
+
+{% block content %}
+    {% if logged_user%}
+        <div style="display:inline-block;">
+                {% for o in unsaved_recognized_objects %}
+                    <div class="col" style="padding:10px;display:inline-block;">
+                        <div class="z-depth-3">
+                            <div class="row">
+                                <img src="{{o.image.url}}" style="height:200px;max-width:300px;margin:10px">
+                            </div>
+                            <div class="row" style="height:50px">
+                                    <div class="col">
+                                        <div class="row">
+                                            {% if language == "de" and o.id == object_id%}
+                                                <div class="col" style="margin-left:10px;margin-top:10px;height:20px;text-decoration:line-through">{{o.german_word}}</div>
+                                            {% else %}
+                                                <div class="col" style="margin-left:10px;margin-top:10px;height:20px">{{o.german_word}}</div>
+                                            {% endif %}
+                                            <div class="col" style="margin:5px">
+                                                <form action="{% url 'dictionary:edit_recognized_object' 'de' o.id%}" method="post">
+                                                    {% csrf_token %}
+                                                    <button class="btn" type="submit">
+                                                        <i class="material-icons" type="submit">create</i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            {% if language == "ru" and o.id == object_id%}
+                                                <div class="col" style="margin-left:10px;margin-top:10px;height:20px;text-decoration:line-through">{{o.russian_word}}</div>
+                                            {% else %}
+                                                <div class="col" style="margin-left:10px;margin-top:10px;height:20px">{{o.russian_word}}</div>
+                                            {% endif %}
+                                            <div class="col" style="margin:5px">
+                                                <form action="{% url 'dictionary:edit_recognized_object' 'ru' o.id%}" method="post">
+                                                        {% csrf_token %}
+                                                    <button class="btn" type="submit">
+                                                        <i class="material-icons" type="submit">create</i>
+                                                    </button>
+                                                    </form>
+                                            </div>
+                                            </div>
+                                    </div>
+
+                                    <div class="col" style="margin:5px;margin-left:25px">
+                                        <form action="{% url 'dictionary:remove_recognized_object' o.id%}" method="post">
+                                            {% csrf_token %}
+                                            <button class="btn" type="submit">
+                                                <i class="material-icons" type="submit">delete_forever</i>
+                                            </button>
+                                        </form>
+                                 </div>
+                            </div>
+
+                            {% if language and o.id == object_id%}
+                                <div class="row">
+                                    <form action="{% url 'dictionary:change_recognized_object' o.id language%}" method="post" style="max-width:300px;display:inline-block">
+                                        {% csrf_token %}
+                                        <input type="text" class="validate" required placeholder="Your word" name="word">
+                                        <button class="btn" type="submit" style="width:300px">Save</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+            {% endfor %}
+            <br>
+            <div style="display:inline-block;">
+                <p style="color:red">Attention! It may take several minutes.</p>
+                <form action="{% url 'dictionary:save_new_words'%}" method="post">
+                    {% csrf_token %}
+                    <button class="btn" type="submit" style="width:300px">
+                        Save
+                    </button>
+                </form>
+            </div>
+         </div>
+    {% else %}
+        <p>You are unlogged. Go to homepage and log in to load pictures.</p>
+        <p><a href="{% url 'dictionary:index'%}">Homepage</a></p>
+    {% endif %}
+{% endblock %}

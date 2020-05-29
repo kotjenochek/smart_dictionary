@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dictionary
+{% endblock %}
+
+{% block content %}
+{% if logged_user%}
+        {% if words_list %}
+            <table>
+                {% for w in words_list %}
+                  <tr hight="50px">
+                      <th style="display: inline-block;margin-right:50px">
+                          <p style="margin:0px;margin-left:15px">{{w.german_word}}</p>
+                          <audio src={{w.german_pronunciation.url}} controls></audio>
+                      </th>
+                      <th style="display: inline-block;">
+                          <p style="margin:0px;margin-left:15px">{{w.russian_word}}</p>
+                          <audio controls src={{w.russian_pronunciation.url}}></audio>
+                      </th>
+                      <th>
+                          <img src={{w.image.url}} style="width:70px;length:70px" >
+                      </th>
+                      <th>
+                          <form style="margin-top:15px" action="{% url 'dictionary:remove_picture_from_dictionary' w.id%}" method="post">
+                              {% csrf_token %}
+                              <button class="btn" type="submit">
+                                  <i class="material-icons" type="submit">delete_forever</i>
+                              </button>
+                          </form>
+                      </th>
+                  </tr>
+                {% endfor %}
+            </table>
+
+        {% else %}
+        <p align="center" style="margin-top:200px">You do not have any vocabulary</p>
+        {% endif %}
+{% else %}
+        <p>You are unlogged. Go to homepage and log in to load pictures.</p>
+        <p><a href="{% url 'dictionary:index'%}">Homepage</a></p>
+    {% endif %}
+
+{% endblock %}

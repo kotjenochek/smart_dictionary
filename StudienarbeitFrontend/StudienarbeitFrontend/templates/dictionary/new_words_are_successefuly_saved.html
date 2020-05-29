@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Saved
+{% endblock %}
+
+{% block content %}
+
+    <p style="font-size:20px">
+        Your pictures were uploaded successfully :D Go to <a href="{% url 'dictionary:show_dictionary'%}">Dictionary</a>
+        or to <a href="{% url 'dictionary:start_learning'%}">Learning</a> to find them again
+        or <a href="{% url 'dictionary:select_pictures_to_upload'%}">upload new pictures</a>.
+    </p>
+
+{% endblock %}

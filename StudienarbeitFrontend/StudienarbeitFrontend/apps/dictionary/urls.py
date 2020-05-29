@@ -1,0 +1,35 @@
+from django.urls import path
+from . import views
+
+app_name = 'dictionary'
+urlpatterns = [
+    path('', views.index, name='index'),
+    path('<int:user_id>/', views.log_in, name='log_in'),
+    path('create_user/', views.create_user, name='create_user'),
+    path('add_user/', views.add_user, name='add_user'),
+    path('remove_user/<int:u_id>/', views.remove_user, name='remove_user'),
+    path('dictionary/', views.show_dictionary, name='show_dictionary'),
+    path('dictionary/<int:w_id>/', views.remove_picture_from_dictionary, name="remove_picture_from_dictionary"),
+    path('start_learning/', views.start_learning, name='start_learning'),
+    path('select_pictures_to_upload/', views.select_pictures_to_upload, name='select_pictures_to_upload'),
+    path('remove_recognized_object/<int:o_id>', views.remove_recognized_object, name='remove_recognized_object'),
+    path('save_new_words/', views.save_new_words, name='save_new_words'),
+    path('show_pictures_with_recognized_objects', views.show_pictures_with_recognized_objects,
+         name='show_pictures_with_recognized_objects'),
+    path('edit_recognized_object/<str:language>/<int:o_id>', views.edit_recognized_object, name='edit_recognized_object'),
+    path('change_recognized_object/<int:o_id>/<str:language>', views.change_recognized_object,
+         name='change_recognized_object'),
+    path('start_learning/<int:method_nr>', views.choosed_method, name='choosed_method'),
+    path('start_learning/knowing/<int:w_id>/<int:method_nr>', views.show_result_by_knowing,
+         name='show_result_by_knowing'),
+    path('start_learning/unknowing/<int:w_id>/<int:method_nr>', views.show_result_by_unknowing,
+         name='show_result_by_unknowing'),
+    path('start_learning/knowing2/<int:w_id>/<int:method_nr>', views.show_result_by_knowing2,
+         name='show_result_by_knowing2'),
+    path('start_learning/unknowing2/<int:w_id>/<int:method_nr>', views.show_result_by_unknowing2,
+         name='show_result_by_unknowing2'),
+    path('start_learning/answer/<int:w_id>/<int:xp>/<int:method_nr>', views.answer_is_given,
+         name='answer_is_given'),
+    path('start_learning/answer2/<int:w_id>/<int:xp>/<int:method_nr>', views.answer_is_given2,
+         name='answer_is_given2'),
+    ]

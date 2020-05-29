@@ -1,0 +1,45 @@
+{% load static %}
+{% include 'material/includes/material_css.html' %}
+{% include 'material/includes/material_js.html' %}
+{% load material_form %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>SPV</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <div class="menu">
+            <div class="navi" style="font-size:20px">
+                <p><a href="{% url 'dictionary:index'%}">Homepage</a></p>
+		        <p><a href="{% url 'dictionary:show_dictionary'%}">Dictionary</a></p>
+		        <p><a href="{% url 'dictionary:select_pictures_to_upload'%}">Load picture</a></p>
+                <p><a href="{% url 'dictionary:start_learning'%}">Learning</a></p>
+                {%block navigation %}{% endblock %}
+            </div>
+            <div class="userinformation">
+                {% if logged_user %}
+                    <p style="font-size:20px;margin:10px">{{logged_user.name}}, {{logged_user.xp}}XP</p>
+                    {% if logged_user.image %}
+                        <img src={{logged_user.image.url}} class="circle responsive-img" style="height:40px; margin:10px">
+                    {% else %}
+                        <img src="/media/initial_picture.png" class="circle responsive-img" style="height:40px; margin:10px">
+                    {% endif %}
+                {% endif %}
+            </div>
+    </div>
+        <div class="container" style="margin-top:200px;margin-bottom:200px;text-align:center;color:#00695c">
+            {% block content %}{% endblock %}
+        </div>
+        <div class="footer">
+            <p>Made by Anna Kharchenko </p>
+            <p>E-Mail: inf17100@lehren.dhbw-stuttgart.de</p>
+        </div>
+</body>
+</html>

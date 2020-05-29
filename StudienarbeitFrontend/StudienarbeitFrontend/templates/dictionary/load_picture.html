@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load filter_tags %}
+
+{% block title %}
+Load picture
+{% endblock %}
+
+{% block content %}
+    {% if logged_user%}
+            <div class="load_pictures_form">
+                <form enctype="multipart/form-data" action="{% url 'dictionary:show_pictures_with_recognized_objects'%}" method="post">
+                    {% csrf_token %}
+
+                    <div class="file-field input-field">
+                        <div class="btn" style="width:200px;">
+                            <span>Select pictures</span>
+                            <input type="file" name="files" multiple>
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    <p style="color:red">Attention! Object recognition may take several minutes.</p>
+                    <button class="btn" type="submit" style="width:100%">Load</button>
+                </form>
+            </div>
+
+    {% else %}
+        <p>You are unlogged. Go to homepage and log in to load pictures.</p>
+        <p><a href="{% url 'dictionary:index'%}">Homepage</a></p>
+    {% endif %}
+{% endblock %}
