@@ -27,6 +27,8 @@ class Training(models.Model):
     User = models.ForeignKey(User, on_delete=models.CASCADE)
     german_word = models.CharField('german word', max_length=50)
     russian_word = models.CharField('russian word', max_length=50)
+    german_pronunciation = models.FileField(null=True, blank=True, upload_to='Audio/de/')
+    russian_pronunciation = models.FileField(null=True, blank=True, upload_to='Audio/ru/')
     image = models.ImageField(null=True, blank=True)
     learnword_id = models.IntegerField()
     counter = models.IntegerField()

@@ -261,12 +261,15 @@ def answer_is_given(request, w_id, xp, method_nr):
 
     word_list = logged_user.learnword_set.order_by('german_word')
     word = Learnword.objects.get(id=w_id)
-    w_index = list(word_list).index(word) + 1
+    w_index = list(word_list).index(word) + 2
+    print(w_index)
 
     if w_index >= len(word_list):
         Training.objects.all().delete()
         for w in word_list:
             logged_user.training_set.create(german_word=w.german_word, russian_word=w.russian_word, image=w.image,
+                                            german_pronunciation=w.german_pronunciation,
+                                            russian_pronunciation=w.russian_pronunciation,
                                             learnword_id=w.id, counter=0)
         return render(request, 'dictionary/learn2.html',
                       {'logged_user': logged_user, 'word': word, 'method_nr': method_nr})
@@ -283,20 +286,24 @@ def answer_is_given2(request, w_id, xp, method_nr):
     logged_user.save()
 
     try:
-        training_list = logged_user.training_set.order_by('german_word')
         training_word = Training.objects.get(id=w_id)
-        w_index = list(training_list).index(training_word) + 1
+        training_list = logged_user.training_set.order_by('german_word')
+        w_index = list(training_list).index(training_word) + 2
 
         if xp == 2:
-            training_word = Training.objects.get(id=w_id)
             training_word.counter = training_word.counter + 1
             training_word.save()
 
             if training_word.counter == 3:
+                w_index = list(training_list).index(training_word)
                 Training.delete(training_word)
+                print('Word was learned')
+                training_list = logged_user.training_set.order_by('german_word')
+
 
         if w_index < len(training_list):
             word = training_list[w_index]
+            print(w_index)
         else:
             if Training.objects.exists():
                 training_list = list(logged_user.training_set.order_by('german_word'))
@@ -306,7 +313,6 @@ def answer_is_given2(request, w_id, xp, method_nr):
     except (ValueError, IndexError):
         print("Help, I am dead :(")
 
-    print(method_nr)
     return render(request, 'dictionary/learn2.html',
                   {'logged_user': logged_user, 'word': word, 'method_nr': method_nr})
 

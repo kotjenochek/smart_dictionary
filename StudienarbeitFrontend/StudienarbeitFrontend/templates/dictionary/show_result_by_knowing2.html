@@ -15,12 +15,12 @@ Learn 1
             {% if method_nr == 1 %}
                 <div class="row" style="margin:0px">
                     <p style="color: #00695c;">{{word.russian_word}}</p>
-                    <audio src={{word.russian_pronunciation.url}} controls></audio>
+                    <audio controls src={{word.russian_pronunciation.url}}></audio>
                 </div>
             {% elif method_nr == 2 %}
                  <div class="row" style="margin:0px">
                     <p style="color: #00695c;">{{word.german_word}}</p>
-                     <audio src={{word.german_pronunciation.url}} controls></audio>
+                     <audio controls src={{word.german_pronunciation.url}}></audio>
                 </div>
             {% endif %}
 

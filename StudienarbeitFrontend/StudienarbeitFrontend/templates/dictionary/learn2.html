@@ -23,7 +23,7 @@ Learn 1
 
             <div class="row" style="margin:0px">
                 <div class="col s6" style="text-align:left">
-                    <form action="{% url 'dictionary:show_result_by_unknowing2' word.id '2'%}" method="post">
+                    <form action="{% url 'dictionary:show_result_by_unknowing2' word.id method_nr%}" method="post">
                         {% csrf_token %}
                         <button class="btn" type="submit" style="width:200px;height:auto">
                             I don't remember
@@ -33,7 +33,7 @@ Learn 1
                 </div>
 
                 <div class="col s6" style="text-align:right">
-                    <form action="{% url 'dictionary:show_result_by_knowing2' word.id '2'%}" method="post">
+                    <form action="{% url 'dictionary:show_result_by_knowing2' word.id method_nr%}" method="post">
                         {% csrf_token %}
                         <button class="btn" type="submit" style="width:200px;height:auto">
                             I remember
