@@ -69,6 +69,7 @@ def show_pictures_with_recognized_objects(request):
         for file in request.FILES.getlist("files"):
             Picture.objects.create(image=file)
             images_list.append(file)
+        print("image_list was created")
         recognize_images(images_list, pictures_to_recognize_path, object_recognition_library_path, logged_user)
         unsaved_recognized_objects = UnsavedLearnword.objects.order_by('german_word')
         response = render(request, 'dictionary/show_pictures_with_recognized_objects.html',
