@@ -25,7 +25,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cnd")
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, "media_cnd")
+MEDIA_ROOT = os.path.join(BASE_DIR, "StudienarbeitFrontend/media_cnd")
 
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"

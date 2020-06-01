@@ -3,17 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="aea386a6-ec8a-4cb5-8ce5-44e10c5e9377" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StudienarbeitFrontend/apps/dictionary/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/StudienarbeitFrontend/apps/dictionary/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StudienarbeitFrontend/apps/dictionary/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/StudienarbeitFrontend/apps/dictionary/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/StudienarbeitFrontend/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/StudienarbeitFrontend/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StudienarbeitFrontend/templates/dictionary/learn2.html" beforeDir="false" afterPath="$PROJECT_DIR$/StudienarbeitFrontend/templates/dictionary/learn2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/StudienarbeitFrontend/templates/dictionary/show_result_by_knowing2.html" beforeDir="false" afterPath="$PROJECT_DIR$/StudienarbeitFrontend/templates/dictionary/show_result_by_knowing2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_cnd/Audio/de/Fahrrad.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_cnd/Audio/de/person.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_cnd/Audio/ru/велосипед.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_cnd/Audio/ru/человек.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_cnd/GreenRoute2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media_cnd/IMG_4433.JPG" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/media_cnd/initial_picture.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media_cnd/libraries_for_object_recognition/resnet50_coco_best_v2.0.1.h5" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
