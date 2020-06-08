@@ -4,8 +4,10 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from imageai.Detection import ObjectDetection
+from imageai.Prediction import ImagePrediction
 from googletrans import Translator
 from gtts import gTTS
+import time
 
 from StudienarbeitFrontend import settings
 from .models import User, Learnword, Training, UnsavedLearnword, Picture
@@ -69,7 +71,6 @@ def show_pictures_with_recognized_objects(request):
         for file in request.FILES.getlist("files"):
             Picture.objects.create(image=file)
             images_list.append(file)
-        print("image_list was created")
         recognize_images(images_list, pictures_to_recognize_path, object_recognition_library_path, logged_user)
         unsaved_recognized_objects = UnsavedLearnword.objects.order_by('german_word')
         response = render(request, 'dictionary/show_pictures_with_recognized_objects.html',
@@ -85,42 +86,32 @@ def show_pictures_with_recognized_objects(request):
 def recognize_images(images_list, pictures_to_recognize_path, object_recognition_library_path, logged_user):
     for image in images_list:
         image_url = os.path.join(pictures_to_recognize_path, str(image))
-        detector = ObjectDetection()
-        detector.setModelTypeAsRetinaNet()
-        detector.setModelPath(os.path.join(object_recognition_library_path,
-                                           "resnet50_coco_best_v2.0.1.h5"))
-        detector.loadModel(detection_speed="fastest")
+        prediction = ImagePrediction()
+        prediction.setModelTypeAsSqueezeNet()
+        path = os.path.join(object_recognition_library_path, "squeezenet_weights_tf_dim_ordering_tf_kernels.h5")
+        prediction.setModelPath(path)
+        prediction.setModelPath(path)
+        prediction.loadModel()
+        predictions, probabilities = prediction.predictImage(image_url, result_count=5)
 
-        try:
-            recognized_object_list = detector.detectObjectsFromImage(
-                input_image=image_url,
-                output_image_path=image_url,
-                minimum_percentage_probability=50,
-                display_percentage_probability=False,
-                display_object_name=False
-            )
-            print(image_url)
-            create_unsaved_learnwords(recognized_object_list, image, logged_user.id)
-        except:
-            create_unsaved_learnwords(None, image, logged_user.id)
+        recognized_object_list = []
+        for eachPrediction, eachProbability in zip(predictions, probabilities):
+            print(eachPrediction)
+            if eachProbability > 30:
+                recognized_object_list.append(eachPrediction)
+                print(eachPrediction, " : ", eachProbability)
+        print(recognized_object_list)
+
+        create_unsaved_learnwords(recognized_object_list, image_url, logged_user.id)
 
 
 def create_unsaved_learnwords(recognized_object_list, image_url, logged_user_id):
-    recognized_objects_name = []
+    if len(recognized_object_list) == 0:
+        recognized_object_list.append('nothing is detected')
 
-    if recognized_object_list:
-        for eachObject in recognized_object_list:
-            object_name = eachObject["name"]
-            if object_name not in recognized_objects_name:
-                recognized_objects_name.append(object_name)
-
-    if len(recognized_objects_name) == 0:
-        recognized_objects_name.append('nothing is detected')
-
-    for recognized_object_name in recognized_objects_name:
+    for recognized_object_name in recognized_object_list:
         german_word = translate_to_german(recognized_object_name)
         russian_word = translate_to_russian(recognized_object_name)
-        print("Create UnsavedLearnwords with ...", str(image_url))
         UnsavedLearnword.objects.create(User_id=logged_user_id, german_word=german_word,
                                         russian_word=russian_word, image=image_url)
 
